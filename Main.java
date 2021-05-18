@@ -44,5 +44,9 @@ public class Main {
                 System.out.printf("%9s",g.getEdge(list.get(i), list.get(j)));
             System.out.println();
         }
+        
+        //Greed main program
+        GreedySearch gs = new GreedySearch(g, list, maxCapacity);
+        gs.performGreed();
     }
 }

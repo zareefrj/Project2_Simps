@@ -15,7 +15,7 @@ import java.util.Collections;
 public class GreedySearch {
     private GraphMap g;
     private ArrayList<Customer> list;
-    public int idCurrent, maxCapacity;
+    public int idCurrent, idPrevious, maxCapacity;
     public int parcelSent = 0;
     public int vehicleCount = 1;
     private ArrayList<Double> distance = new ArrayList<>();
@@ -40,6 +40,7 @@ public class GreedySearch {
                    double k = getShortest(idCurrent);
                    distance.add(k);
                } else {
+                    idPrevious = idCurrent;
                     printTour();
                     break;
                }
@@ -74,6 +75,7 @@ public class GreedySearch {
         } else {
                  i = distance.get(0);
         }
+        i+=g.adjacency_matrix[0][idPrevious];
         return i;
     }
     
@@ -98,6 +100,7 @@ public class GreedySearch {
                 }
         }
         Collections.sort(tour); //to sort in increasing order
+        idPrevious = idCurrent;
         idCurrent = temp.indexOf(tour.get(0)); //to know which customer has the shortest path
         return tour.get(0); 
     }

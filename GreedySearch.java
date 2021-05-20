@@ -18,6 +18,7 @@ public class GreedySearch {
     public int idCurrent, idPrevious, maxCapacity;
     public int parcelSent = 0;
     public int vehicleCount = 1;
+    public double sumCostAll = 0;
     private ArrayList<Double> distance = new ArrayList<>();
     private ArrayList<Integer> road = new ArrayList<>();
          
@@ -42,6 +43,7 @@ public class GreedySearch {
                } else {
                     idPrevious = idCurrent;
                     printTour();
+                    System.out.println("Tour Cost : " + sumCostAll);
                     break;
                }
           } else {
@@ -76,6 +78,7 @@ public class GreedySearch {
                  i = distance.get(0);
         }
         i+=g.adjacency_matrix[0][idPrevious];
+        sumCostAll += i;
         return i;
     }
     

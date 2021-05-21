@@ -71,11 +71,16 @@ public class GreedySearch {
     //To sum up all distances recorded
     private double sumCost(){
         double i = 0;
-        if(distance.size() != 1){
-        for(int j = 0; j < distance.size()-1 ; j++)
+        if(!allVisited()){
+            for(int j = 0; j < distance.size() ; j++)
                  i += distance.get(j);
         } else {
-                 i = distance.get(0);
+            if(distance.size() != 1){
+                for(int j = 0; j < distance.size()-1 ; j++)
+                     i += distance.get(j);
+            } else {
+                     i = distance.get(0);
+            }
         }
         i+=g.adjacency_matrix[0][idPrevious];
         sumCostAll += i;

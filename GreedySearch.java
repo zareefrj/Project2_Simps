@@ -15,7 +15,7 @@ import java.util.Collections;
 public class GreedySearch {
     private GraphMap g;
     private ArrayList<Customer> list;
-    public int idCurrent, idPrevious, maxCapacity;
+    public int idCurrent, idPrevious,maxCapacity;
     public int parcelSent = 0;
     public int vehicleCount = 1;
     public double sumCostAll = 0;

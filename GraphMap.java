@@ -1,7 +1,7 @@
 package Project;
 public class GraphMap  <T extends Comparable<T>, N extends Comparable<N>>{
     private final int vertices; //no of customer+depot
-    private double[][] adjacency_matrix;
+    protected double[][] adjacency_matrix;
 
     public GraphMap(int v) //constructor
     {
@@ -15,7 +15,7 @@ public class GraphMap  <T extends Comparable<T>, N extends Comparable<N>>{
     {
         try
         {   //yg ni guna id customer sbg index utk pinpoint location in the matrix
-            //pastu cost is evaluated by using distance x2-y2 tu, pythagonas theorem
+            //pastu cost is evaluated by using distance x2-y2 tu, Pythagoras theorem
             adjacency_matrix[(int) to.id][(int) from.id] =Math.sqrt(Math.pow((to.x-from.x),2)+Math.pow((to.y-from.y),2));
         }
         catch (ArrayIndexOutOfBoundsException index)
@@ -28,7 +28,7 @@ public class GraphMap  <T extends Comparable<T>, N extends Comparable<N>>{
     {
         try
         {
-            return Math.round(adjacency_matrix[(int) to.id][(int) from.id]); //i used round to make it cleaner, klau x byk sgt dp
+            return adjacency_matrix[(int) to.id][(int) from.id]; //i used round to make it cleaner, klau x byk sgt dp
         }
         catch (ArrayIndexOutOfBoundsException index)
         {

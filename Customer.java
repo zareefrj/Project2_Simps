@@ -15,6 +15,9 @@ public class Customer <T extends Comparable<T>, N extends Comparable<N>>{
         visited = false;
     }
 
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
 
     @Override
     public String toString() {  //for printing all the details of each customer

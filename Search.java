@@ -100,6 +100,48 @@ public class Search {
        ResetNodes(list);
         System.out.println("\n------------GREEDY SEARCH------------");
     }
+    
+    //A*Search
+    public void aStarSearch() {
+        Customer goal = list.get(goalindex());
+        Customer source=list.get(0);
+        while (!allVisited()){
+            source.setVisited(false);
+            next=current=source;
+            cost=0;
+
+            while(parcelSent+ next.demands<=maxCapacity) {
+
+                cost += g.adjacency_matrix[(int)next.id][(int)current.id];
+                current = next;
+                parcelSent += current.demands;
+                route.add(current);
+                current.setVisited(true);
+                
+                //cost+=g.getEdge(source,current);
+                
+                Double max = Double.MAX_VALUE;
+                for (int i = 0; i < list.size() ; i++){
+                    double fnNhn = cost + g.adjacency_matrix[i][(int)current.id] + g.adjacency_matrix[(int)goal.id][i];
+                    if (fnNhn < max && !list.get(i).visited && i != current.id) {
+                        max = fnNhn;
+                        next = list.get(i);
+                    }
+                }
+                if(current == next){
+                    break;
+                }
+            }
+            route.add(source);
+            cost+=g.getEdge(source,current);
+            TourCost+=cost;
+            vehicles.add(new Vehicle(cost, (ArrayList<Customer>) route.clone(),parcelSent));
+            route.clear();
+            parcelSent=0;
+        }
+       ResetNodes(list);
+        System.out.println("\n------------A* SEARCH------------");
+    }
 
      //to return true if there's at least one customer that hasn't yet be visited
     private boolean allVisited(){
@@ -114,5 +156,16 @@ public class Search {
     protected static void ResetNodes(ArrayList<Customer> list) {
         for (Customer customer : list)
             customer.setVisited(false);
+    }
+    
+    private int goalindex(){
+        double min = Double.NEGATIVE_INFINITY;
+        int goal = 0;
+        for (int i = 0; i < list.size() ; i++)
+                    if (g.adjacency_matrix[0][i] > min) {
+                        min = g.adjacency_matrix[0][i];
+                        goal = i;
+                    }
+        return goal;
     }
 }

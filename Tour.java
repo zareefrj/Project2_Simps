@@ -3,46 +3,38 @@ package Project;
 import java.util.ArrayList;
 
 public class Tour {
+    //This Tour class is solely created for the implementation of the MCTS Search
+
+    ArrayList<ArrayList<Customer>> route;
+    double TourCost;
     GraphMap g;
-    double cost,tourcost;
-    ArrayList<Vehicle> vehicles;
-    Vehicle currentVan;
-    //ArrayList<Customer> routes;
 
     public Tour(GraphMap g) {
+        route=new ArrayList<>();
+        TourCost=0;
         this.g=g;
-        this.cost = 0;
-        this.tourcost = 0;
-        this.vehicles = new ArrayList<>();
-      //  this.routes = new ArrayList<>();
     }
 
-    public void dispatchNewVehicle(){
-        currentVan=new Vehicle();
-        vehicles.add(currentVan);
-        this.cost = 0;
+    public void setRoute(ArrayList<Customer> route) {
+        this.route.add(route);
     }
 
-    public double getTourcost() {
-        for(int i=0;i<vehicles.size();i++) {
-            cost=0;
-            for (int j = 1; j <vehicles.get(i).route.size(); j++) {
-                if (j + 1 == vehicles.get(i).route.size())
-                    cost += g.getEdge(vehicles.get(i).route.get(0), vehicles.get(i).route.get(j - 1));
+
+
+    public double getTourCost() {
+        if(route.isEmpty())
+            return 0;
+        else{
+            for(int i=0;i< route.size();i++){
+                for(int j=0;j<route.get(i).size();j++){
+                    if (j + 1 == route.size())
+                        TourCost += g.getEdge(route.get(i).get(0), route.get(i).get(j - 1));
                 else
-                    cost += g.getEdge(vehicles.get(i).route.get(j), vehicles.get(i).route.get(j - 1));
+                        TourCost += g.getEdge(route.get(i).get(j), route.get(i).get(j - 1));
             }
-            vehicles.get(i).setCost(cost);
-            tourcost+=cost;
         }
-        return tourcost;
+            return TourCost;
+    }
     }
 
-    @Override
-    public String toString() {
-        for(Vehicle v: vehicles)
-            System.out.println(v.toString());
-
-        return "Tour: "+getTourcost()+"\n";
-    }
 }

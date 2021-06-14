@@ -1,5 +1,8 @@
 package Project;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer <T extends Comparable<T>, N extends Comparable<N>>{
 
     //CUSTOMER CLASS WILL REPRESENT THE NODES FOR THE GRAPH //

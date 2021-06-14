@@ -77,6 +77,11 @@ public class Main {
         MCTS mcts=new MCTS(g,list,maxCapacity);
         int level=3,iterations=100;
         System.out.println(mcts.MonteCarloSearch(level,iterations));
+        
+        //A* Search
+        Search search1=new Search(g,list,maxCapacity);
+        search1.aStarSearch();
+        printTour(search1.vehicles,search1.TourCost);
         }
 
 
